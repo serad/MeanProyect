@@ -5,18 +5,9 @@ export default function($scope, todoFactory) {
         createHasInput: false   
     }
 console.log(todoFactory.createTask);
-    $scope.todos = [
-        {
-           task: 'Cocinar',
-           isCompleted: false,
-           isEditing: false 
-        },
-        {
-           task: 'Comprar',
-           isCompleted: true,
-           isEditing: false 
-        }
-    ];
+ 
+    todoFactory.getTasks($scope);
+    
     $scope.onCompletedClick = todo => {
       todo.isCompleted = !todo.isCompleted;  
     };
@@ -32,7 +23,7 @@ console.log(todoFactory.createTask);
     }
     const { createTask, updateTask, deleteTask,  watchCreateTaskInput } = todoFactory;
     $scope.createTask = _.partial(createTask, $scope, params);
-    $scope.onSaveClick = _.partial(updateTask);
+    $scope.onSaveClick = _.partial(updateTask, $scope);
     $scope.onDeleteClick = _.partial(deleteTask, $scope); 
     $scope.$watch('createTaskInput', _.partial(watchCreateTaskInput, params, $scope));
 }
